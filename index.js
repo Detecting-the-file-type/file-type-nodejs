@@ -63,11 +63,13 @@ app.post("/image", upload.single("image"), async (req, res) => {
           data.includes("89504e470d0a1a0a") ||
           data.includes("424d")
         ) {
+          // Write an image with extend jpg from buffer
+          fs.writeFileSync("image.jpg", req.file.buffer);
           res.status(200).send("It's an image");
         } else {
           res.status(404).send("It's not an image");
         }
-      }else {
+      } else {
         res.status(404).send("No buffer");
       }
       // });
@@ -102,9 +104,9 @@ app.post("/video", upload.single("video"), async (req, res) => {
           data.includes("6674797069736F6D") ||
           data.includes("6674797033677035") ||
           data.includes("667479704d534e56") ||
-          data.includes("667479706d703432") 
-
+          data.includes("667479706d703432")
         ) {
+    
           res.status(200).send("video");
         } else {
           res.status(404).send("not video");
