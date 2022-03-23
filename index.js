@@ -53,7 +53,9 @@ app.post("/image", upload.single("image"), async (req, res) => {
       // PNG
       // 89504e470d0a1a0a
       // Jpg
+      console.log(req.file.buffer);
       let data = await req.file.buffer.toString("hex");
+
       if (data) {
         if (
           data.includes("ffd8ff") ||
@@ -65,6 +67,8 @@ app.post("/image", upload.single("image"), async (req, res) => {
         } else {
           res.status(404).send("It's not an image");
         }
+      }else {
+        res.status(404).send("No buffer");
       }
       // });
     } else {
